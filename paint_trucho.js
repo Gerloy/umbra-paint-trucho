@@ -17,6 +17,7 @@ function setup() {
   col_linea = color('#FA00AA');
   //frame_actual = p5.createFramebuffer();
   rectMode(CENTER);
+  noCursor();
 }
 
 
