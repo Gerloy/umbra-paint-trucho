@@ -27,6 +27,16 @@ function draw() {
   stroke(0);
   noFill();
   strokeWeight(1);
+	//print(touches);
+	if(touches.length > 0){
+	switch(herramienta){
+	    case HERRAMIENTAS["Pincel"]:
+	      circle(touches[0].x,touches[0].y,tam_pincel,tam_pincel);
+	      break;
+	    case HERRAMIENTAS["Goma"]:
+	      rect(touches[0].x,touches[0].y,tam_goma,tam_goma);
+	  }
+	}
   switch(herramienta){
     case HERRAMIENTAS["Pincel"]:
       circle(mouseX,mouseY,tam_pincel,tam_pincel);
@@ -47,6 +57,17 @@ function mousePressed(){
       linea_activa = new Linea(col_fondo,tam_goma,herramienta);
     }
   }
+}
+
+function touchStarted(){
+	//print("Empezo touch");
+    switch(herramienta){
+    case HERRAMIENTAS["Pincel"]:
+      linea_activa = new Linea(col_linea,tam_pincel,herramienta);
+      break;
+    case HERRAMIENTAS["Goma"]:
+      linea_activa = new Linea(col_fondo,tam_goma,herramienta);
+    }
 }
 
 function mouseWheel(evento){
@@ -77,7 +98,7 @@ function keyPressed(){
   if((key == 'g') || (key == 'G')){
     herramienta = HERRAMIENTAS["Goma"];
   }
-  print(herramienta);
+  //print(herramienta);
 }
 
 function dibujarFrame(){
@@ -85,7 +106,7 @@ function dibujarFrame(){
   for(let i=0; i<lineas.length;i++){
     lineas[i].dibujar();
   }
-  if(mouseIsPressed){
+  if(mouseIsPressed && linea_activa != null){
     linea_activa.update();
     linea_activa.dibujar();
   }
@@ -93,6 +114,10 @@ function dibujarFrame(){
 
 function mouseReleased(){
   lineas.push(linea_activa);
+}
+
+function touchReleased(){
+	lineas.push(linea_activa);
 }
 
 function borrarLinea(){

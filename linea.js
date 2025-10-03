@@ -18,7 +18,13 @@ class Linea{
     }
 
     update(){
-        let punto = createVector(mouseX,mouseY);
+	    let punto = createVector(0,0);
+	if (touches.length>0){
+        //print(touches);
+		punto = createVector(touches[0].x,touches[0].y); 
+	}else{
+		punto = createVector(mouseX,mouseY);
+	}
         this.puntos.push(punto);
     }
 }
