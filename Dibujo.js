@@ -1,0 +1,83 @@
+const HERRAMIENTAS = {"Pincel":0, "Goma":1};
+class Dibujo{
+
+	constructor(_pos_x,_pos_y){
+		let options = { width: 480, height: 640 };
+		this.buffer = createGraphics(480,640);
+		this.tam_pincel = 10;
+		this.tam_goma = 10;
+		this.herramienta = HERRAMIENTAS["Pincel"];
+		this.col_fondo = color('#FAFAFA');
+		this.col_linea = color('#FA00AA');
+		this.pos_x = _pos_x;
+		this.pos_y = _pos_y;
+		this.offset_x = this.pos_x - (this.buffer.width * 0.5);
+		this.offset_y = this.pos_y - (this.buffer.height * 0.5);
+	}
+
+	dibujar(){
+		image(this.buffer,this.pos_x,this.pos_y);
+	}
+
+	update(){
+		//this.buffer.begin();
+		this.dibujarFrame();
+		//this.buffer.end();
+	}
+
+
+	dibujarFrame(){
+		this.buffer.background(this.col_fondo);
+  		for(linea in this.lineas){
+	    	this.buffer.linea.dibujar();
+  		}
+		if(mouseIsPressed && this.linea_activa != null){
+	    	this.linea_activa.update();
+    		this.linea_activa.dibujar(buffer);
+  		}
+	}
+
+	cambiarColor(_col){
+		this.col_linea = color(_col);
+	}
+
+	cambiarHerramienta(_herramienta){
+		this.herramienta = HERRAMIENTAS[_herramienta];
+	}
+
+	cambaiarTam(_tam){
+		switch(herramienta){
+    	case HERRAMIENTAS["Pincel"]:
+    	  this.tam_pincel = _tam;
+    	  break;
+    	case HERRAMIENTAS["Goma"]:
+    	  this.tam_gome = _tam;
+		  break;
+
+		default:
+			print("No hay herramienta seleccionada por alguna razon");
+			break;
+		}
+	}
+
+	hover(){
+		if (touches.length > 0){
+			if (
+				touches[0].x >= (this.pos_x - this.buffer.width*0.5)  &&
+				touches[0].x <= (this.pos_x + this.buffer.width*0.5)  &&
+				touches[0].y >= (this.pos_y - this.buffer.height*0.5) &&
+				touches[0].y <= (this.pos_y + this.buffer.height*0.5) ){
+				return true;
+			}else{
+				return false;
+			}
+		}else if (mouseX >= (this.pos_x - this.buffer.width*0.5)  &&
+				  mouseX <= (this.pos_x + this.buffer.width*0.5)  &&
+				  mouseY >= (this.pos_y - this.buffer.height*0.5) &&
+				  mouseY <= (this.pos_y + this.buffer.height*0.5) ){
+			return true;
+		}else{
+			return false;
+		}
+	}
+}

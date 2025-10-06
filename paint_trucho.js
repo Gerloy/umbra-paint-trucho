@@ -1,48 +1,51 @@
-const HERRAMIENTAS = {"Pincel":0, "Goma":1};
-const MAX_TAM = 60;
-let tam_pincel;
-let tam_goma;
-let col_linea;
-let col_fondo;
-let herramienta = HERRAMIENTAS["Pincel"];
-let lineas = [];
-let linea_activa;
-let frame_actual;
-
+//const HERRAMIENTAS = {"Pincel":0, "Goma":1};
+//const MAX_TAM = 60;
+//let tam_pincel;
+//let tam_goma;
+//let col_linea;
+//let col_fondo;
+//let herramienta = HERRAMIENTAS["Pincel"];
+//let lineas = [];
+//let linea_activa;
+//let frame_actual;
+let dibujo;
 function setup() {
-  createCanvas(480,640,P2D);
-  tam_pincel = 10;
-  tam_goma = 10;
-  col_fondo = 125;
-  col_linea = color('#FA00AA');
-  //frame_actual = p5.createFramebuffer();
+  createCanvas(1280,720,P2D);
+  dibujo = new Dibujo(width*0.5,height*0.5);
   rectMode(CENTER);
-  noCursor();
+  imageMode(CENTER);
+  //noCursor();
 }
 
 
 function draw() {
-  dibujarFrame();
+  //dibujarFrame();
+  background(0);
+  dibujo.update();
+  dibujo.dibujar();
+  cursor(ARROW);
   push();
   stroke(0);
   noFill();
   strokeWeight(1);
-	//print(touches);
-	if(touches.length > 0){
-	switch(herramienta){
-	    case HERRAMIENTAS["Pincel"]:
-	      circle(touches[0].x,touches[0].y,tam_pincel,tam_pincel);
-	      break;
-	    case HERRAMIENTAS["Goma"]:
-	      rect(touches[0].x,touches[0].y,tam_goma,tam_goma);
+  if(dibujo.hover()){
+    noCursor();
+	  if(touches.length > 0){
+	  switch(dibujo.herramienta){
+	      case HERRAMIENTAS["Pincel"]:
+	        circle(touches[0].x,touches[0].y,dibujo.tam_pincel,dibujo.tam_pincel);
+	        break;
+	      case HERRAMIENTAS["Goma"]:
+	        rect(touches[0].x,touches[0].y,dibujo.tam_goma,dibujo.tam_goma);
+	    }
 	  }
-	}
-  switch(herramienta){
-    case HERRAMIENTAS["Pincel"]:
-      circle(mouseX,mouseY,tam_pincel,tam_pincel);
-      break;
-    case HERRAMIENTAS["Goma"]:
-      rect(mouseX,mouseY,tam_goma,tam_goma);
+    switch(dibujo.herramienta){
+      case HERRAMIENTAS["Pincel"]:
+        circle(mouseX,mouseY,dibujo.tam_pincel,dibujo.tam_pincel);
+        break;
+      case HERRAMIENTAS["Goma"]:
+        rect(mouseX,mouseY,dibujo.tam_goma,dibujo.tam_goma);
+    }
   }
   pop();
 }
@@ -101,16 +104,16 @@ function keyPressed(){
   //print(herramienta);
 }
 
-function dibujarFrame(){
-  background(col_fondo);
-  for(let i=0; i<lineas.length;i++){
-    lineas[i].dibujar();
-  }
-  if(mouseIsPressed && linea_activa != null){
-    linea_activa.update();
-    linea_activa.dibujar();
-  }
-}
+//function dibujarFrame(){
+//  background(col_fondo);
+//  for(let i=0; i<lineas.length;i++){
+//    lineas[i].dibujar();
+//  }
+//  if(mouseIsPressed && linea_activa != null){
+//    linea_activa.update();
+//    linea_activa.dibujar();
+//  }
+//}
 
 function mouseReleased(){
   lineas.push(linea_activa);
