@@ -4,6 +4,7 @@ class Linea{
         this.grosor = grosor;
         this.puntos = [];
         this.herramienta = herramienta;
+        this.offset = offset;
     }
 
     dibujar(buffer){

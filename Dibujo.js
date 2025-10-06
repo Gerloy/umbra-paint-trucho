@@ -13,6 +13,7 @@ class Dibujo{
 		this.pos_y = _pos_y;
 		this.offset_x = this.pos_x - (this.buffer.width * 0.5);
 		this.offset_y = this.pos_y - (this.buffer.height * 0.5);
+		this.lineas = [];
 	}
 
 	dibujar(){
@@ -20,20 +21,18 @@ class Dibujo{
 	}
 
 	update(){
-		//this.buffer.begin();
 		this.dibujarFrame();
-		//this.buffer.end();
 	}
 
 
 	dibujarFrame(){
 		this.buffer.background(this.col_fondo);
-  		for(linea in this.lineas){
-	    	this.buffer.linea.dibujar();
-  		}
+  		this.lineas.forEach(linea => {
+	    	linea.dibujar(this.buffer);
+  		})
 		if(mouseIsPressed && this.linea_activa != null){
 	    	this.linea_activa.update();
-    		this.linea_activa.dibujar(buffer);
+    		this.linea_activa.dibujar(this.buffer);
   		}
 	}
 
@@ -79,5 +78,24 @@ class Dibujo{
 		}else{
 			return false;
 		}
+	}
+
+	mouseRel(){
+		if (this.linea_activa != null){this.lineas.push(this.linea_activa);}
+		this.linea_activa = null;
+	}
+
+	borrarLinea(){
+		this.lineas.pop();
+	}
+
+	lineaSta(){
+		switch(this.herramienta){
+    		case HERRAMIENTAS["Pincel"]:
+		      	this.linea_activa = new Linea(this.col_linea,this.tam_pincel,this.herramienta,{'x':this.offset_x, 'y':this.offset_y});
+      			break;
+    		case HERRAMIENTAS["Goma"]:
+      			this.linea_activa = new Linea(this.col_fondo,this.tam_goma,this.herramienta,{'x':this.offset_x, 'y':this.offset_y});
+    	}
 	}
 }
