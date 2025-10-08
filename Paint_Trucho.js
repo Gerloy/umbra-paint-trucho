@@ -1,16 +1,13 @@
-//const HERRAMIENTAS = {"Pincel":0, "Goma":1};
-//const MAX_TAM = 60;
-//let tam_pincel;
-//let tam_goma;
-//let col_linea;
-//let col_fondo;
-//let herramienta = HERRAMIENTAS["Pincel"];
-//let lineas = [];
-//let linea_activa;
-//let frame_actual;
+const HERRAMIENTAS = {'Pincel':0, 'Goma':1};
+const COLORES = {'Verde':'#85993c', 'Azul':'#136491', 'Magenta':'8c2b4c', 'Rojo':'8a2708'};
+const TAMS = [5,10,15,20,30];
+
+let ui;
 let dibujo;
+
 function setup() {
   createCanvas(1280,720,P2D);
+	ui = new UI();
   dibujo = new Dibujo(width*0.5,height*0.5);
   rectMode(CENTER);
   imageMode(CENTER);

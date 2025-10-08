@@ -1,4 +1,4 @@
-const HERRAMIENTAS = {"Pincel":0, "Goma":1};
+//const HERRAMIENTAS = {"Pincel":0, "Goma":1};
 class Dibujo{
 
 	constructor(_pos_x,_pos_y){
