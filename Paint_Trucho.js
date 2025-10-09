@@ -6,11 +6,11 @@ let ui;
 let dibujo;
 
 function setup() {
-  createCanvas(1280,720,P2D);
-	ui = new UI();
-  dibujo = new Dibujo(width*0.5,height*0.5);
-  rectMode(CENTER);
-  imageMode(CENTER);
+	createCanvas(1280,720,P2D);
+	dibujo = new Dibujo(width*0.5,height*0.5);
+	ui = new UI({'x':width*0.5, 'y':height*0.5},{'x':480, 'y':640});
+	rectMode(CENTER);
+	imageMode(CENTER);
 }
 
 

@@ -1,3 +1,5 @@
 class Selector_Color{
-	constructor(){}
+	constructor(){
+		
+	}
 }

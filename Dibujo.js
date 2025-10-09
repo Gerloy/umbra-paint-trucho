@@ -4,6 +4,7 @@ class Dibujo{
 	constructor(_pos_x,_pos_y){
 		let options = { width: 480, height: 640 };
 		this.buffer = createGraphics(480,640);
+		this.tam = TAMS[1];
 		this.tam_pincel = 10;
 		this.tam_goma = 10;
 		this.herramienta = HERRAMIENTAS["Pincel"];
