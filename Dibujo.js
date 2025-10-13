@@ -45,8 +45,8 @@ class Dibujo{
 		this.herramienta = HERRAMIENTAS[_herramienta];
 	}
 
-	cambaiarTam(_tam){
-		switch(herramienta){
+	cambiarTam(_tam){
+		switch(this.herramienta){
     	case HERRAMIENTAS["Pincel"]:
     	  this.tam_pincel = _tam;
     	  break;

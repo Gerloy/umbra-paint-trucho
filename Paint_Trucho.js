@@ -15,9 +15,10 @@ function setup() {
 
 
 function draw() {
-  background(color('#242424'));
+  background(color('#4fa39d'));
   dibujo.update();
   dibujo.dibujar();
+  ui.update();
   dibujarMouse();
 }
 
@@ -52,46 +53,17 @@ function dibujarMouse(){
 function mousePressed(){
   if(mouseButton == LEFT){
     if(dibujo.hover())dibujo.lineaSta();
-    //switch(herramienta){
-    //case HERRAMIENTAS["Pincel"]:
-    //  linea_activa = new Linea(col_linea,tam_pincel,herramienta);
-    //  break;
-    //case HERRAMIENTAS["Goma"]:
-    //  linea_activa = new Linea(col_fondo,tam_goma,herramienta);
-    //}
   }
 }
 
 function touchStarted(){
   if(dibujo.hover())dibujo.lineaSta();
-  //switch(herramienta){
-  //case HERRAMIENTAS["Pincel"]:
-  //  linea_activa = new Linea(col_linea,tam_pincel,herramienta);
-  //  break;
-  //case HERRAMIENTAS["Goma"]:
-  //  linea_activa = new Linea(col_fondo,tam_goma,herramienta);
-  //}
 }
 
-//function mouseWheel(evento){
-//  let aumento = ( (evento.delta>0) ? -1:1);
-//  switch(herramienta){
-//    case HERRAMIENTAS["Pincel"]:
-//      tam_pincel += aumento;
-//      if (tam_pincel < 0){tam_pincel = 0;}
-//      if (tam_pincel > MAX_TAM){tam_pincel = MAX_TAM;}
-//      break;
-//    case HERRAMIENTAS["Goma"]:
-//      tam_goma += aumento;
-//      if (tam_goma < 0){tam_goma = 0;}
-//      if (tam_goma > MAX_TAM){tam_goma = MAX_TAM;}
-//    }
-//}
 
 function keyPressed(){
   if((key == 'd') || (key == 'D')){
     dibujo.borrarLinea();
-    //borrarLinea();
   }
   if((key == 's') || (key == 'S')){
     guardar();
@@ -106,19 +78,19 @@ function keyPressed(){
 
 function mouseReleased(){
   dibujo.mouseRel();
+  let config = ui.click();
+  for(key in config){
+    if (key == "Tam"){
+      dibujo.cambiarTam(TAMS[config[key]]);
+    }
+  }
 }
 
 function touchReleased(){
   dibujo.mouseRel();
 }
 
-//function borrarLinea(){
-//  lineas.pop();
-//}
 
 function guardar(){
-  //save(frame_actual,"Dibujo "+frameCount+".png");
-  //dibujarFrame();
   save(dibujo.buffer,'Dibujo_'+frameCount+'.png');
-  //saveCanvas("Dibujo "+frameCount,"png");
 }
