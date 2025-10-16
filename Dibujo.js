@@ -9,7 +9,7 @@ class Dibujo{
 		this.tam_goma = 10;
 		this.herramienta = HERRAMIENTAS["Pincel"];
 		this.col_fondo = color('#FAFAFA');
-		this.col_linea = color('#FA00AA');
+		this.col_linea = color(COLORES['Magenta']);
 		this.pos_x = _pos_x;
 		this.pos_y = _pos_y;
 		this.offset_x = this.pos_x - (this.buffer.width * 0.5);
@@ -46,18 +46,8 @@ class Dibujo{
 	}
 
 	cambiarTam(_tam){
-		switch(this.herramienta){
-    	case HERRAMIENTAS["Pincel"]:
-    	  this.tam_pincel = _tam;
-    	  break;
-    	case HERRAMIENTAS["Goma"]:
-    	  this.tam_gome = _tam;
-		  break;
-
-		default:
-			print("No hay herramienta seleccionada por alguna razon");
-			break;
-		}
+		this.tam_pincel = _tam;
+		this.tam_goma = _tam;
 	}
 
 	hover(){
