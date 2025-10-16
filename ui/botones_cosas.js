@@ -1,3 +1,4 @@
+//const BOTONES = ['Pincel', 'Goma', 'Atras', 'Guardar'];
 class Botones_Cosas{
 	constructor(_pos){
 		this.pos = {'x': _pos['x'],'y': _pos['y']};
