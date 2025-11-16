@@ -2,7 +2,7 @@
 class Botones_Cosas{
 	constructor(_pos){
 		this.pos = {'x': _pos['x'],'y': _pos['y']};
-		this.tam = {'x': 40, 'y': 290};
+		this.tam = {'x': 40*mult, 'y': 290*mult};
 		this.eleccion = 0;
 	}
 

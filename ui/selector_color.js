@@ -1,7 +1,7 @@
 class Selector_Color{
 	constructor(_pos){
 		this.pos = {'x': _pos['x'],'y': _pos['y']};
-		this.tam = {'x': 290, 'y': 40};
+		this.tam = {'x': 290*mult, 'y': 40*mult};
 		this.eleccion = COLORES["Magenta"];
 	}
 
@@ -32,7 +32,7 @@ class Selector_Color{
 				fill('#684427');
 			}
 			stroke('#684427');
-			strokeWeight(3);
+			strokeWeight(3*mult);
 	    	if(key == 'Verde'){
 				rect(x,this.pos['y'],tx,this.tam['y'],12,0,0,12);
 			}else if(key == 'Rojo'){
@@ -44,7 +44,7 @@ class Selector_Color{
 			push();
 			fill(COLORES[key]);
 			noStroke();
-			ellipse(x,this.pos['y'],20);
+			ellipse(x,this.pos['y'],20*mult);
 			pop();
 			x += tx;
 			//y += ty;

@@ -2,8 +2,8 @@
 class Dibujo{
 
 	constructor(_pos_x,_pos_y){
-		let options = { width: 480, height: 640 };
-		this.buffer = createGraphics(480,640);
+		let options = { width: 480*mult, height: 640*mult };
+		this.buffer = createGraphics(480*mult,640*mult);
 		this.tam = TAMS[1];
 		this.tam_pincel = 10;
 		this.tam_goma = 10;
@@ -46,8 +46,8 @@ class Dibujo{
 	}
 
 	cambiarTam(_tam){
-		this.tam_pincel = _tam;
-		this.tam_goma = _tam;
+		this.tam_pincel = _tam*mult;
+		this.tam_goma = _tam*mult;
 	}
 
 	hover(){

@@ -1,7 +1,7 @@
 class Selector_Tam{
 	constructor(_pos){
 		this.pos = {'x': _pos['x'],'y': _pos['y']};
-		this.tam = {'x': 40, 'y': 320};
+		this.tam = {'x': 40*mult, 'y': 320*mult};
 		this.eleccion = 1;
 	}
 
@@ -30,7 +30,7 @@ class Selector_Tam{
 				fill('#684427');
 			}
 			stroke('#684427');
-			strokeWeight(3);
+			strokeWeight(3*mult);
 	    	if(tam == TAMS[0]){
 				rect(this.pos['x'],y,this.tam['x'],ty,12,12,0,0);
 			}else if(tam == TAMS[TAMS.length-1]){
@@ -42,7 +42,7 @@ class Selector_Tam{
 			push();
 			fill(0);
 			noStroke();
-			ellipse(this.pos['x'],y,tam);
+			ellipse(this.pos['x'],y,tam*mult);
 			pop();
 			y += ty;
   		})

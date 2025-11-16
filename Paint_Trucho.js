@@ -3,12 +3,15 @@ const COLORES = {'Verde':'#85993c', 'Azul':'#136491', 'Magenta':'#8c2b4c', 'Rojo
 const TAMS = [5,10,15,20,30];
 const BOTONES = ['Pincel', 'Goma', 'Atras', 'Guardar'];
 
+let touch = false;
+
 let ui;
 let dibujo;
 let icon_guardar;
 let icon_borrar;
 let icon_deshacer;
 let icon_pincel;
+let mult;
 
 function preload(){
   icon_borrar = loadImage("data/borrador.png");
@@ -18,10 +21,17 @@ function preload(){
 }
 
 function setup() {
-	createCanvas(1280,720,P2D);
+	//createCanvas(1280,720,P2D);
   createCanvas(displayWidth, displayHeight,P2D);
-	dibujo = new Dibujo(width*0.5,height*0.45);
-	ui = new UI({'x':width*0.5, 'y':height*0.45},{'x':480, 'y':640});
+  if (displayWidth < 768){
+    mult = 0.5;
+    dibujo = new Dibujo(width*0.5,height*0.45);
+	  ui = new UI({'x':width*0.5, 'y':height*0.45},{'x':480*mult, 'y':640*mult});  
+  }else{
+    mult = 1;
+	  dibujo = new Dibujo(width*0.5,height*0.45);
+	  ui = new UI({'x':width*0.5, 'y':height*0.45},{'x':480*mult, 'y':640*mult});
+  }
 	rectMode(CENTER);
 	imageMode(CENTER);
 }
@@ -71,6 +81,7 @@ function mousePressed(){
 
 function touchStarted(){
   if(dibujo.hover())dibujo.lineaSta();
+  touch = true;
 }
 
 
@@ -104,7 +115,10 @@ function mouseReleased(){
           dibujo.cambiarHerramienta('Goma');
         break;
         case 2:
-          dibujo.borrarLinea();
+          if (touch){
+            touch = false;
+            dibujo.borrarLinea();
+          }
         break;
         case 3:
           guardar();
@@ -118,9 +132,35 @@ function mouseReleased(){
 
 function touchReleased(){
   dibujo.mouseRel();
+  let config = ui.click();
+  for(key in config){
+    if (key == "Tam"){
+      dibujo.cambiarTam(TAMS[config[key]]);
+    }else if (key == "Boton"){
+      switch(config["Boton"]){
+        case 0:
+          dibujo.cambiarHerramienta('Pincel');
+        break;
+        case 1:
+          dibujo.cambiarHerramienta('Goma');
+        break;
+        case 2:
+          print(touch);
+          dibujo.borrarLinea();
+        break;
+        case 3:
+          guardar();
+        break;
+      }
+    }else if (key == "Color"){
+      dibujo.cambiarColor(config["Color"]);
+    }
+  }
+  touch = false;
 }
 
 
 function guardar(){
-  save(dibujo.buffer,'Dibujo_'+frameCount+'.png');
+  dibujo.buffer.save('Dibujo_'+frameCount);
+  //save(dibujo.buffer,'Dibujo_'+frameCount+'.png');
 }
